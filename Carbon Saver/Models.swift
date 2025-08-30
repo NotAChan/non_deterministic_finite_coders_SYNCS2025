@@ -8,6 +8,7 @@ enum TransportationType: String, CaseIterable, Codable {
     case bus = "Bus"
     case train = "Train"
     case metro = "Metro"
+    case driving = "Driving"
     
     var carbonEmissionPerKm: Double {
         switch self {
@@ -19,6 +20,8 @@ enum TransportationType: String, CaseIterable, Codable {
             return 0.0
         case .metro:
             return 0.0
+        case .driving:
+            return 0.171 //There shouldn't be any saved carbon emission if user decided to driving
         }
     }
     
@@ -31,7 +34,7 @@ enum TransportationType: String, CaseIterable, Codable {
     }
     
     var pointsPerKm: Int {
-        return Int(carbonSavedPerKm * 10000) //We decided to make it become 1 kg CO2= 100 pts
+        return Int(carbonSavedPerKm * 100) //We decided to make it become 1 kg CO2= 100 pts
     }
 }
 
