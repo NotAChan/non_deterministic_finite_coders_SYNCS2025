@@ -1,18 +1,19 @@
 # Carbon Saver - Sustainable Transportation Tracker
 
-A comprehensive iOS application that encourages sustainable transportation by tracking user routes and calculating carbon emissions saved compared to driving a car.
+- A comprehensive iOS application that encourages sustainable transportation by tracking user routes and calculating carbon emissions saved compared to driving a car. 
+- You are able to collect the points that are proportional to the carbon emissions saved for each trip. 
+- The collected points can be used to plant a real tree or donate to support projects under your name. 
 
 ## Features
 
 ### 🚶‍♂️ Transportation Tracking
-- **Multiple Transportation Types**: Walking, Cycling, Bus, Train, Metro
-- **Real-time Location Tracking**: GPS tracking every 5 seconds
+- **Multiple Transportation Types**: Walking, Cycling, Bus, Train, Metro, Driving(Car)
+- **Real-time Location Tracking**: Real-time location tracking every 5 seconds
 - **Route Visualization**: Interactive map showing your journey
-- **Distance Calculation**: Accurate distance measurement in kilometers
+- **Distance Calculation**: Accurate distance measurement in kilometers (In the future, we might improve this to be distance measured in meters when it's smaller than 1km - should be a better visualisation to see 50m rather than 0.05km)
 
 ### 🌱 Carbon Emission Calculation
 - **Smart Calculations**: Compares your transportation choice with car emissions
-- **Real-time Updates**: See carbon saved during your journey
 - **Points System**: Earn points based on carbon emissions saved (1 kg CO2 = 100 points)
 
 ### 🎁 Redemption System
@@ -23,7 +24,7 @@ A comprehensive iOS application that encourages sustainable transportation by tr
 ### 📊 User Profile & Statistics
 - **Trip History**: View all your completed trips
 - **Total Statistics**: Track total distance, carbon saved, and points earned
-- **Personal Dashboard**: Monitor your environmental impact
+- **Personal Dashboard**: Monitor your environmental impacts!
 
 ## Carbon Emission Data
 
@@ -32,9 +33,9 @@ The app uses scientifically-based carbon emission factors:
 | Transportation | CO2 per km | Points per km |
 |----------------|------------|---------------|
 | Walking/Cycling | 0.0 kg | 17 points |
-| Bus | 0.105 kg | 6.6 points |
-| Train | 0.041 kg | 13 points |
-| Metro | 0.046 kg | 12.5 points |
+| Bus | 0.0 kg | 17 points |
+| Train | 0.0 kg | 17 points |
+| Metro | 0.0 kg | 17 points |
 | Car (baseline) | 0.171 kg | 0 points |
 
 ## Technical Implementation
@@ -43,14 +44,7 @@ The app uses scientifically-based carbon emission factors:
 - **SwiftUI**: Modern declarative UI framework
 - **Core Location**: GPS tracking and location services
 - **MapKit**: Interactive map display and route visualization
-- **UserDefaults**: Local data persistence
-- **MVVM Pattern**: Clean separation of concerns
-
-### Key Components
-1. **LocationManager**: Handles GPS tracking and location updates
-2. **UserData**: Manages user statistics and trip history
-3. **ContentView**: Main app interface with map and controls
-4. **Models**: Data structures for trips, locations, and redemptions
+- **UserDefaults**: Local data persistence (Future work to integrate database to ensure user information security)
 
 ## Setup Instructions
 
@@ -109,8 +103,7 @@ The app requires location permissions to function:
 
 - **Local Storage**: All data is stored locally on your device
 - **No Cloud Sync**: Your location data never leaves your device
-- **Optional Permissions**: You can deny location access and still use the app
-- **Data Control**: You can reset your data at any time
+- **Data Control**: In the future versions, you can reset your data at any time
 
 ## Environmental Impact
 
@@ -118,8 +111,8 @@ By using sustainable transportation, you're making a real difference:
 
 - **Walking 1 km**: Saves 0.171 kg CO2 (17 points)
 - **Cycling 1 km**: Saves 0.171 kg CO2 (17 points)
-- **Taking the bus 1 km**: Saves 0.066 kg CO2 (6.6 points)
-- **Taking the train 1 km**: Saves 0.13 kg CO2 (13 points)
+- **Taking the bus 1 km**: Saves 0.171 kg CO2 (17 points)
+- **Taking the train 1 km**: Saves 0.171 kg CO2 (17 points)
 
 ## Future Enhancements
 
