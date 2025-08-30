@@ -1,7 +1,11 @@
 import Foundation
 import CoreLocation
 import MapKit
-
+//Implements Locate、Record the routes、Distance calculation & display map 
+//Utilizing 
+//  - CoreLocation (Tracking Location Architecture, get longitude, latitude & Track current LOcation) & 
+//  - MapKit (Architecture of MAP - Used to display map and record routes) & 
+//  - Foundation (Datetime, ⏲定时器 etc)
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     private var timer: Timer?
@@ -33,13 +37,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 5
+        locationManager.distanceFilter = 1
         locationManager.requestWhenInUseAuthorization()
     }
     
     func startTracking() {
         guard !isTracking else { return }
         
+        //reset all paarams
         isTracking = true
         trackingStartTime = Date()
         locations.removeAll()
@@ -50,15 +55,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         
         timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
-            self?.locationManager.requestLocation()
+            self?.locationManager.requestLocation() //request location per 2/5 secs
         }
         
         durationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.objectWillChange.send()
+            self?.objectWillChange.send() //每1秒刷新UI
         }
         
         if let currentLocation = currentLocation {
-            region.center = currentLocation.coordinate
+            region.center = currentLocation.coordinate //should have curr loc as center
         }
     }
     
@@ -72,16 +77,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         durationTimer = nil
         locationManager.stopUpdatingLocation()
         
-        createRoutePolyline()
+        createRoutePolyline() //OUR ROUTE!!!
     }
     
     func getCurrentTrip() -> Trip? {
         guard let startTime = trackingStartTime,
               !locations.isEmpty else { 
-            print("getCurrentTrip failed: startTime=\(trackingStartTime?.description ?? "nil"), locations.count=\(locations.count)")
             return nil 
         }
-        
         let duration = Date().timeIntervalSince(startTime)
         let trip = Trip(
             transportationType: .walking,
@@ -89,9 +92,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             locations: locations,
             duration: duration
         )
-        
-        print("getCurrentTrip success: distance=\(currentDistance), duration=\(duration), locations=\(locations.count)")
-        
         return trip
     }
     
@@ -114,7 +114,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private func fitMapToRoute() {
         guard !routeCoordinates.isEmpty else { return }
-        
+         
         let minLat = routeCoordinates.map { $0.latitude }.min() ?? 0
         let maxLat = routeCoordinates.map { $0.latitude }.max() ?? 0
         let minLon = routeCoordinates.map { $0.longitude }.min() ?? 0
@@ -133,7 +133,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 longitudeDelta: max(lonDelta, 0.005)
             )
         )
-        
         region = newRegion
     }
     
@@ -149,32 +148,24 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
-        
         currentLocation = newLocation
-        
         if region.center.latitude == 0 && region.center.longitude == 0 {
             region.center = newLocation.coordinate
         }
-        
         let locationPoint = LocationPoint(coordinate: newLocation.coordinate)
-        
         if let previousLocation = self.locations.last {
             let previousCLLocation = CLLocation(latitude: previousLocation.latitude, longitude: previousLocation.longitude)
             let distance = newLocation.distance(from: previousCLLocation) / 1000.0
             currentDistance += distance
             
             if isTracking {
-                print("Location update: +\(String(format: "%.3f", distance)) km, total: \(String(format: "%.3f", currentDistance)) km")
             }
         }
-        
         self.locations.append(locationPoint)
-        
         routeCoordinates.append(newLocation.coordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location manager error: \(error.localizedDescription)")
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -190,6 +181,4 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             break
         }
     }
-    
-
 }
