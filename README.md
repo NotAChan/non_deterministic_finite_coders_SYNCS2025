@@ -1,4 +1,3 @@
-Jinghan: I want to firstly apologize that I couldn't get my GitHub work with XCode yesterday, Leon and me are responsible for the implementations (only we two are using Macbook) while Caleb and Richard are responsible for drawing the design. As my GitHub didn't work properly and we also have different working hours (I worked on it from ~8p.m. - 1a.m. and Leon worked on it from ~1a.m. to 5a.m.), we decided to use zip file sharing. After Leon finished, he pushed the files onto Github, and I restarted everything today morning and then GitHub work, so I started to edit some code (mainly settings of the app) that Leon hadn't finished in the early morning, that's why we have only a few commits... I deeply apologize for this.
 # Carbon Saver - Sustainable Transportation Tracker
 
 - A comprehensive iOS application that encourages sustainable transportation by tracking user routes and calculating carbon emissions saved compared to driving a car. 
@@ -135,3 +134,6 @@ This project is open source and available under the MIT License.
 ---
 
 **Make every journey count for the planet! 🌍**
+
+NOTE:
+Jinghan: I want to firstly apologize that I couldn't get my GitHub work with XCode yesterday, Leon and me are responsible for the implementations (only we two are using Macbook) while Caleb and Richard are responsible for drawing the design. As my GitHub didn't work properly and we also have different working hours (I worked on it from ~8p.m. - 1a.m. and Leon worked on it from ~1a.m. to 5a.m.), we decided to use zip file sharing. After Leon finished, he pushed the files onto Github, and I restarted everything today morning and then GitHub work, so I started to edit some code (mainly settings of the app) that Leon hadn't finished in the early morning, that's why we have only a few commits... I deeply apologize for this.
