@@ -76,7 +76,7 @@ struct WelcomeView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("Swipe to continue")
+                    Text("Swipe right to continue")
                         .font(.caption)
                         .foregroundColor(.black.opacity(0.6))
                         .padding(.bottom, 20)
@@ -560,12 +560,12 @@ struct TripSummaryView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 24) {
+            VStack(spacing: 5) {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 80))
                     .foregroundColor(.green)
                 
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
                     Text("Trip Completed!")
                         .font(.title)
                         .fontWeight(.bold)
